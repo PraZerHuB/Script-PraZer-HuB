@@ -1,0 +1,82 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("GuFi HUB", "DarkTheme")
+
+local Tab = Window:NewTab("All")
+local Section = Tab:NewSection("Function")
+
+Section:NewButton("shop", "Gufi HUB", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70.8539429, 9.07194519, 373.444, 0.978734553, -6.26572971e-09, 0.205130935, 3.31917138e-09, 1, 1.47083723e-08, -0.205130935, -1.37147271e-08, 0.978734553)
+end)
+
+Plr = {}
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+    table.insert(Plr,v.Name) 
+end
+local drop = Section:NewDropdown("Select Player!", "Click To Select", Plr, function(t)
+   PlayerTP = t
+end)
+
+Section:NewButton("Click To TP", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTP].Character.HumanoidRootPart.CFrame
+end)
+
+Section:NewToggle("Auto Tp", "", function(taga)
+_G.TPPlayer = taga
+
+
+while _G.TPPlayer do wait()
+
+-------------------------------------------------------------
+if _G.TPPlayer then 
+    local CFrameEnd = game.Players[PlayerTP].Character.HumanoidRootPart.CFrame --ใส่พิกัดวาร์ปใน()
+    local Time = 20
+    local tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Time), {CFrame = CFrameEnd}) tween:Play()
+    
+        
+        else
+            
+            local CFrameEnd = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame --ใส่พิกัดวาร์ปใน()
+            local Time = 0
+            local tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,
+                TweenInfo.new(Time), {CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame}) tween:Play()
+                
+ 
+end
+
+
+
+
+
+-------------------------------------------------------------
+
+
+
+end
+
+end)
+
+Section:NewToggle("Speed", "", function(d)
+_G.Speed = d
+while _G.Speed do wait(0)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 60 --60Demon
+end
+end)
+
+Section:NewToggle("Jump", "", function(s)
+_G.jump = s
+while _G.jump do wait()
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = 100
+end
+end)
+Section:NewButton("Refresh Dropdown","Refresh Dropdown", function()
+  drop:Refresh(Plr)
+end)
+
+
+local Tab = Window:NewTab("Key Change")
+local KeySection = Tab:NewSection("Key")
+
+KeySection:NewKeybind("KeybindText", "KeybindInfo", Enum.KeyCode.F, function()
+	Library:ToggleUI()
+end)
